@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screens/screens/LanguageSelection.dart';
 
 class Signin extends StatefulWidget {
   @override
@@ -150,7 +151,11 @@ class _SigninPageState extends State<Signin> {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Sign up with email action
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LanguageSelectionPage()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFDFC25A), // Button color
@@ -159,7 +164,7 @@ class _SigninPageState extends State<Signin> {
                     ),
                   ),
                   child: const Text(
-                    'Sign up with Email',
+                    'SignIn',
                     style: TextStyle(
                       color: Color(0xFFFAFAF9), // Text color
                       fontSize: 16,

@@ -94,28 +94,28 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color(0xFF000000)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message_outlined, color: Color(0xFF000000)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, color: Color(0xFFF5C754)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Color(0xFF000000)),
-            label: '',
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   backgroundColor: Colors.white,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home, color: Color(0xFF000000)),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.message_outlined, color: Color(0xFF000000)),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings, color: Color(0xFFF5C754)),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person, color: Color(0xFF000000)),
+      //       label: '',
+      //     ),
+      //   ],
+      //   type: BottomNavigationBarType.fixed,
+      // ),
     );
   }
 

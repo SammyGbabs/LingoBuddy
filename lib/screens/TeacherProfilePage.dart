@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:screens/screens/ChatPage.dart';
+import 'package:screens/screens/EditProfile.dart';
+import 'package:screens/screens/LanguageSelection.dart';
+import 'package:screens/screens/LanguageTranslatorPage.dart';
 
 class TeacherProfilePage extends StatefulWidget {
   @override
@@ -62,7 +66,12 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChatPage()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: const Color(0xFFE3E8F2),
@@ -80,7 +89,13 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LanguageTranslatorPage()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: const Color(0xFFF5C754),

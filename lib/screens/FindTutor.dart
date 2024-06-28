@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screens/screens/TeacherProfilePage.dart';
 
 class FindTutorPage extends StatefulWidget {
   @override
@@ -231,7 +232,11 @@ class _FindTutorPageState extends State<FindTutorPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // View profile action
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TeacherProfilePage()),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFE3E8F2),

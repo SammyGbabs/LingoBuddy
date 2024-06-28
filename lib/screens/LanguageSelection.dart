@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screens/screens/FindTutor.dart';
 
 class LanguageSelectionPage extends StatelessWidget {
   final List<Map<String, String>> languages = [
@@ -145,7 +146,10 @@ class LanguageSelectionPage extends StatelessWidget {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Continue action
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => FindTutorPage()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF5C754), // Button color

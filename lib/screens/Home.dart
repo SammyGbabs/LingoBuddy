@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:screens/screens/Signin.dart';
+import 'package:screens/screens/SignupPage.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -39,7 +41,10 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Sign up action
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
                 },
                 child: Text(
                   'Sign up for free',
@@ -53,7 +58,10 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             TextButton(
               onPressed: () {
-                // Log in action
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Signin()),
+                );
               },
               child: Text(
                 'Log in',
