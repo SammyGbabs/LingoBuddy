@@ -232,7 +232,7 @@ class _FindTutorPageState extends State<FindTutorPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => TeacherProfilePage()),

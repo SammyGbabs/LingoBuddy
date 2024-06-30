@@ -67,7 +67,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => ChatPage()),
                       );
@@ -90,7 +90,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                   const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => LanguageTranslatorPage()),
