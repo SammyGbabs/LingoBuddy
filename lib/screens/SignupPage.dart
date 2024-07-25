@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'LanguageSelection.dart';
@@ -8,7 +9,31 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signUpWithEmail() async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      // Navigate to the next page or show success message
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LanguageSelectionPage()),
+      );
+    } catch (e) {
+      // Handle sign-up errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const Text(
                 'Sign Up Now',
                 style: TextStyle(
-                  color: Colors.black, // Black color for title
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -42,12 +67,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: OutlinedButton.icon(
                   icon: Image.asset('images/googleicon.png', height: 24),
                   label: const Text('Sign up with Google'),
-                  onPressed: () {},
+                  onPressed: () {
+                    // Google Sign-In logic will go here
+                  },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.black,
                     side: const BorderSide(
-                        color: Color.fromARGB(
-                            255, 176, 173, 172)), // Use the specified color
+                        color: Color.fromARGB(255, 176, 173, 172)),
                   ),
                 ),
               ),
@@ -72,26 +98,22 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Text(
                   "Username",
                   style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color: Colors.black,
                   ),
                 ),
               ),
               SizedBox(height: 5),
-              const TextField(
+              TextField(
+                controller: _usernameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color:
-                            Color.fromARGB(255, 162, 159, 157)), // Border color
+                    borderSide: BorderSide(color: Color.fromARGB(255, 162, 159, 157)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color:
-                            Color.fromARGB(255, 162, 159, 157)), // Border color
+                    borderSide: BorderSide(color: Color.fromARGB(255, 162, 159, 157)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xFFE7E5E4)), // Border color
+                    borderSide: BorderSide(color: Color(0xFFE7E5E4)),
                   ),
                   hintText: 'Enter your username',
                   hintStyle: TextStyle(
@@ -100,8 +122,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.only(right: 300.0),
+              const Align(
+                alignment: Alignment.centerLeft,
                 child: Text(
                   "Email",
                   style: TextStyle(
@@ -109,21 +131,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
-              const TextField(
+              SizedBox(height: 5),
+              TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color:
-                            Color.fromARGB(255, 162, 159, 157)), // Border color
+                    borderSide: BorderSide(color: Color.fromARGB(255, 162, 159, 157)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color:
-                            Color.fromARGB(255, 162, 159, 157)), // Border color
+                    borderSide: BorderSide(color: Color.fromARGB(255, 162, 159, 157)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey), // Border color
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
                   hintText: 'Enter your email',
                   hintStyle: TextStyle(
@@ -137,25 +156,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Text(
                   "Password",
                   style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color: Colors.black,
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5),
               TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
-                  labelStyle: const TextStyle(
-                      color: Color.fromARGB(
-                          255, 144, 142, 140)), // Black color for labels
+                  labelStyle: const TextStyle(color: Color.fromARGB(255, 144, 142, 140)),
                   border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey), // Border color
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
                   enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey), // Border color
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: const OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xFFE7E5E4)), // Border color
+                    borderSide: BorderSide(color: Color(0xFFE7E5E4)),
                   ),
                   hintText: '●●●●●●●●●●●●●●●',
                   hintStyle: const TextStyle(
@@ -163,9 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                       color: Color.fromARGB(255, 162, 159, 157),
                     ),
                     onPressed: () {
@@ -182,16 +197,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Sign up with email action
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LanguageSelectionPage()),
-                    );
-                  },
+                  onPressed: _signUpWithEmail,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFDFC25A), // Button color
+                    backgroundColor: Color(0xFFDFC25A),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -199,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: const Text(
                     'Sign up with Email',
                     style: TextStyle(
-                      color: Color(0xFFFAFAF9), // Text color
+                      color: Color(0xFFFAFAF9),
                       fontSize: 16,
                     ),
                   ),
