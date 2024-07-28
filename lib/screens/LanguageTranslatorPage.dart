@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:translator/translator.dart';
 import 'package:screens/widget/LanguageSelector.dart';
 import 'package:screens/widget/TranslateCard.dart';
 
@@ -8,6 +9,18 @@ class LanguageTranslatorPage extends StatefulWidget {
 }
 
 class _LanguageTranslatorPageState extends State<LanguageTranslatorPage> {
+  GoogleTranslator translator = GoogleTranslator();
+  String translatedText = '';
+  final langController = TextEditingController();
+
+  void translateText() {
+    translator.translate(langController.text, to: 'es').then((output) {
+      setState(() {
+        translatedText = output.text;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,18 +72,37 @@ class _LanguageTranslatorPageState extends State<LanguageTranslatorPage> {
               ),
             ),
             SizedBox(height: 20),
+            TextField(
+              controller: langController,
+              decoration: InputDecoration(
+                hintText: 'Enter text to translate',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                translateText();
+              },
+              child: Text('Translate'),
+            ),
+            SizedBox(height: 20),
+            Text(
+              translatedText,
+              style: TextStyle(fontSize: 18),
+            ),
             Expanded(
               child: ListView(
                 children: <Widget>[
                   TranslationCard(
                     language: 'English',
-                    text: 'Hello how are you?',
+                    text: langController.text,
                     isInput: true,
                   ),
                   SizedBox(height: 20),
                   TranslationCard(
                     language: 'Spanish',
-                    text: '¿Hola como estas?',
+                    text: translatedText,
                     isInput: false,
                   ),
                 ],

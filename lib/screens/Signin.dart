@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:screens/screens/LanguageSelection.dart';
 
 class Signin extends StatefulWidget {
@@ -13,7 +14,35 @@ class _SigninPageState extends State<Signin> {
   final TextEditingController _passwordController = TextEditingController();
   String _errorMessage = '';
 
-  Future<void> _signIn() async {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return; // User canceled the sign-in
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LanguageSelectionPage()),
+      );
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Google sign-in failed. Please try again.';
+      });
+    }
+  }
+
+  Future<void> _signInWithEmail() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
@@ -25,11 +54,10 @@ class _SigninPageState extends State<Signin> {
     }
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      // Navigate to the next page on successful sign-in
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LanguageSelectionPage()),
@@ -73,9 +101,7 @@ class _SigninPageState extends State<Signin> {
                 child: OutlinedButton.icon(
                   icon: Image.asset('images/googleicon.png', height: 24),
                   label: const Text('Sign in with Google'),
-                  onPressed: () {
-                    // Add Google sign-in logic here if needed
-                  },
+                  onPressed: _signInWithGoogle,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.black,
                     side: const BorderSide(
@@ -187,7 +213,7 @@ class _SigninPageState extends State<Signin> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: _signIn,
+                  onPressed: _signInWithEmail,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFDFC25A),
                     shape: RoundedRectangleBorder(
